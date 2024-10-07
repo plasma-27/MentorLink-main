@@ -6,13 +6,11 @@ import logo from '../assets/login-image.jpg';
 import projectData from '../data/project';
 import credentials from '../data/credentials';
 import students from '../data/studentsallot'; // Import the students data
-import mentorData from '../data/mentordata'; // Import mentor data
 
 const Navbar = ({ loggedInUsername }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [projects, setProjects] = useState([]);
-  const [isStudentsOpen, setIsStudentsOpen] = useState(false); // Track the students sidebar
-  const [isMentorSidebarOpen, setIsMentorSidebarOpen] = useState(false); // Track the mentors sidebar
+  const [studentsList, setStudentsList] = useState([]); // State for students list
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,17 +30,9 @@ const Navbar = ({ loggedInUsername }) => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const toggleStudentsSidebar = () => {
-    setIsStudentsOpen(!isStudentsOpen);
-  };
-
-  const toggleMentorSidebar = () => {
-    setIsMentorSidebarOpen(!isMentorSidebarOpen);
-  };
-
   const showHomeLink = location.pathname !== '/login' && location.pathname !== '/register';
   const showLogoutButton = location.pathname === '/home' || location.pathname === '/mentorhome' || location.pathname === '/studentallothome';
-  const showSidebarButton = location.pathname === '/home' || location.pathname === '/ProjectHome';
+  const showStudentsButton = location.pathname === '/mentorhome'; // Only show on MentorHome
 
   const handleLogout = () => {
     setProjects([]);
@@ -53,29 +43,23 @@ const Navbar = ({ loggedInUsername }) => {
     navigate(`/projecthome/${project}`);
   };
 
-  const handleStudentClick = (student) => {
-    navigate('/studentallothome', { state: { student } }); // Pass the selected student as state
-  };
-
-  const handleMentorClick = (mentor) => {
-    navigate(`/mentorallothome/${mentor.name}`); // Navigate to MentorAllotHome with mentor name
-  };
-
   // Determine user role
-  const isStudent = credentials.users.find(user => user.username === loggedInUsername)?.role === 'student';
   const isMentor = credentials.users.find(user => user.username === loggedInUsername)?.role === 'mentor';
+
+  // Set students list when in MentorHome
+  useEffect(() => {
+    if (isMentor) {
+      setStudentsList(students); // Set the students list
+    }
+  }, [isMentor]);
 
   return (
     <nav className="navbar">
-      {showSidebarButton && (
-        <button className="sidebar-toggle" onClick={toggleSidebar}>
-          &#x22EE;
-        </button>
+      {showHomeLink && (
+        <div className="navbar-logo">
+          <Link to="/"><img src={logo} alt="Logo" /></Link>
+        </div>
       )}
-
-      <div className="navbar-logo">
-        <a href=""><img src={logo} alt="Logo" /></a>
-      </div>
 
       {showHomeLink && (
         <div className="navbar-search-container">
@@ -87,18 +71,15 @@ const Navbar = ({ loggedInUsername }) => {
       <div className="navbar-links">
         {showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>}
 
-        {/* Show Mentor button for students only */}
-        {isStudent && (
-          <button onClick={toggleMentorSidebar} className="mentor-button">Mentors</button>
-        )}
-
-        {/* Show Students button for mentors only */}
-        {isMentor && (
-          <button onClick={toggleStudentsSidebar} className="students-button">Students</button>
-        )}
-
         {showLogoutButton ? (
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <>
+            {showStudentsButton && (
+              <button className="students-button" onClick={toggleSidebar}>
+                Students
+              </button>
+            )}
+            <button onClick={handleLogout} className="logout-button">Logout</button>
+          </>
         ) : (
           <>
             <Link to="/login">Login</Link>
@@ -108,7 +89,7 @@ const Navbar = ({ loggedInUsername }) => {
       </div>
 
       {/* Sidebar for Projects */}
-      {showSidebarButton && (
+      {isSidebarOpen && (
         <aside className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
           <h2>Your Project:</h2>
           <ul>
@@ -127,34 +108,22 @@ const Navbar = ({ loggedInUsername }) => {
         </aside>
       )}
 
-      {/* Sidebar for Mentors */}
-      {isMentorSidebarOpen && (
-        <aside className="mentors-sidebar open">
-          <h4>Mentors:</h4>
-          <ul>
-            {mentorData.map((mentor, index) => (
-              <li key={index}>
-                <button className="mentor-button" onClick={() => handleMentorClick(mentor)}>
-                  {mentor.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </aside>
-      )}
-
       {/* Sidebar for Students */}
-      {isStudentsOpen && (
-        <aside className="students-sidebar open">
-          <h4>Students Under Mentorship:</h4>
+      {showStudentsButton && isSidebarOpen && (
+        <aside className={`student-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+          <h2>Students Under Mentorship:</h2>
           <ul>
-            {students.map((student, index) => (
-              <li key={index}>
-                <button className="student-button" onClick={() => handleStudentClick(student)}>
-                  {student.name}
-                </button>
-              </li>
-            ))}
+            {studentsList.length > 0 ? (
+              studentsList.map((student, index) => (
+                <li key={index}>
+                  <button className="student-button">
+                    {student.name}
+                  </button>
+                </li>
+              ))
+            ) : (
+              <li>No students found</li>
+            )}
           </ul>
         </aside>
       )}

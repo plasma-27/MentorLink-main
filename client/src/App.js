@@ -33,29 +33,30 @@ function App() {
         <Route path="/chat" element={loggedInUsername ? <Chat /> : <Navigate to="/login" />} />
 
         {/* MentorHome should pass the mentor data */}
-        <Route 
-          path="/mentorhome" 
-          element={loggedInUsername ? <MentorHome mentor={mentorData.find(m => m.username === loggedInUsername)} /> : <Navigate to="/login" />} 
+        <Route
+          path="/mentorhome"
+          element={loggedInUsername ? <MentorHome mentor={mentorData.find(m => m.username === loggedInUsername)} /> : <Navigate to="/login" />}
         />
 
         {/* Route for StudentAllotHome */}
-        <Route 
-          path="/studentallothome" 
-          element={loggedInUsername ? <StudentAllotHome /> : <Navigate to="/login" />} 
+        <Route
+          path="/studentallothome"
+          element={loggedInUsername ? <StudentAllotHome /> : <Navigate to="/login" />}
         />
 
         {/* Route for ProjectHome with dynamic projectName parameter */}
-        <Route 
-          path="/projecthome/:projectName" 
-          element={loggedInUsername ? <ProjectHome /> : <Navigate to="/login" />} 
+        <Route
+          path="/projecthome/:projectName"
+          element={loggedInUsername ? <ProjectHome /> : <Navigate to="/login" />}
         />
 
         {/* New route for MentorAllotHome with dynamic mentor name */}
-        <Route 
-          path="/mentorallothome/:mentorName" 
-          element={loggedInUsername ? <MentorAllotHome /> : <Navigate to="/login" />} 
+        <Route
+          path="/mentorallothome/:mentorName"
+          element={loggedInUsername ? <MentorAllotHome /> : <Navigate to="/login" />}
         />
       </Routes>
+      
     </Router>
   );
 }
