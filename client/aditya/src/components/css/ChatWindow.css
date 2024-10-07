@@ -1,0 +1,55 @@
+.chat-window {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-window .chat-content {
+  padding: 16px; /* Add padding */
+  background-color: #ffffff; /* White background for chat content */
+  flex-grow: 1; /* Allow chat content to grow */
+  overflow-y: auto; /* Scrollable content */
+}
+
+.message-item {
+  display: flex; /* Use flexbox to keep items in a row */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 8px; /* Space between messages */
+}
+
+.user-id {
+  font-weight: bold; /* Make user ID bold */
+  margin-right: 4px; /* Space between user ID and message text */
+}
+
+.file-link {
+  margin-left: 4px; /* Space between message text and file link */
+  color: #1a73e8; /* Blue color for links */
+  text-decoration: none; /* Remove underline */
+}
+
+.file-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.message-input {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: #ffffff; /* White background for input area */
+  border-top: 1px solid #e0e0e0; /* Light grey border */
+}
+
+.message-input .MuiInputBase-root {
+  flex-grow: 1; /* Allow input to grow */
+  margin-right: 8px; /* Space between input and button */
+}
+
+.message-input .MuiButton-root {
+  background-color: #1a73e8; /* Blue background for button */
+  color: #ffffff; /* White text */
+}
+
+.message-input .MuiButton-root:hover {
+  background-color: #155ab6; /* Darker blue on hover */
+}

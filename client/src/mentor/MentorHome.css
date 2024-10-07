@@ -1,0 +1,87 @@
+body {
+  background-color: grey;
+}
+
+.mentor-home-container {
+  height: calc(100vh - 63.33px); /* Full window height */
+  display: flex; /* Use flexbox to arrange containers in a row */
+}
+
+.student-container {
+  width: 75%; /* 75% width */
+  background-color: rgb(155, 146, 146); /* Optional: Set a background color for visibility */
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
+  border-radius: 8px; /* Optional: Rounded corners */
+  max-height: calc(100vh - 63.33px - 40px); /* Set a max height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.mentor-info {
+  width: 24%; /* 24% width for the mentor info container */
+  background-color: #d3d3d3; /* Optional: Set a background color for visibility */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
+  border-radius: 8px; /* Optional: Rounded corners */
+  margin-left: 10px; /* Optional: Add space between containers */
+  height: calc(100vh - 63.33px); /* Ensures the mentor info takes full height */
+  padding: 20px;
+}
+
+.mentor-info h2 {
+  margin-bottom: 15px; /* Add space below heading */
+}
+
+.tech-stack-list {
+  list-style-type: disc; /* Use disc for list styling */
+  margin: 10px 0;
+  padding-left: 20px; /* Adds left padding for indentation */
+}
+
+.tech-stack-list li {
+  margin-bottom: 5px; /* Space between list items */
+}
+
+.student-request {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-request p {
+  margin: 5px 0;
+}
+
+.message {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.request-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.decline-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.accept-btn:hover, .decline-btn:hover {
+  transform: translateY(-2px); /* Lift the button on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Darker shadow on hover for 3D effect */
+}

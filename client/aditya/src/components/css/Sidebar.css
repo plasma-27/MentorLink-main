@@ -1,0 +1,21 @@
+.sidebar {
+  padding: 10px;
+  background: #f0f0f0; /* Light background for visibility */
+  overflow-y: auto; /* Enable scrolling if necessary */
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between; /* Space between text and button */
+  align-items: center; /* Center vertically */
+}
+
+.sidebar-video {
+  width: 50px; /* Set a fixed width for sidebar video */
+  height: 50px; /* Set a fixed height for sidebar video */
+}
+
+.sidebar-video-style {
+  width: 100%; /* Ensure the video takes full width of the container */
+  height: 100%; /* Ensure the video takes full height of the container */
+}

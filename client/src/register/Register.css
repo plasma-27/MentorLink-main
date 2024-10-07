@@ -1,0 +1,94 @@
+/* Register.css */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 63.33px);
+}
+
+.register-content {
+  display: flex;
+  flex: 1;
+}
+
+.image-section {
+  flex: 1;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.image-section img {
+  width: 70%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(78, 78, 78);
+}
+
+.register-form {
+  box-shadow: 2px solid #f50707;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.register-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.input-field {
+  margin-bottom: 20px;
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+.radio-group {
+  margin: 15px 0;
+}
+
+.radio-group label {
+  display: inline-block; /* or inline-block for horizontal layout */
+  margin-bottom: 8px;
+}
