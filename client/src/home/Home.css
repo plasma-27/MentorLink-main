@@ -1,0 +1,136 @@
+/* Home.css */
+
+/* Style for the overall home page layout */
+.home-page {
+  display: flex;
+  flex-direction: row; /* Arrange items in a row */
+  justify-content: space-between; /* Space out the items horizontally */
+  height: calc(100vh - 63.33px); /* Full height of the viewport */
+  background-color: #797575; /* Light gray background color */
+  padding: 20px;
+}
+
+/* Style for the tech stack list */
+.tech-stack-list {
+  list-style-type: none; /* Remove default list styles */
+  padding: 0; /* Remove padding */
+  margin: 10px 0; /* Margin for spacing */
+}
+
+.tech-chip {
+  margin: 5px 0; /* Spacing between items */
+  padding: 8px; /* Padding for the chips */
+  background-color: #007bff; /* Chip background color */
+  color: white; /* Text color */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 14px; /* Font size for chips */
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.tech-chip:hover {
+  background-color: #b30600; /* Darker shade on hover */
+}
+
+/* Style for the button container */
+.button-container {
+  display: flex;
+  flex-direction: column; /* Arrange buttons in a column */
+  flex: 1; /* Take up the remaining space */
+  padding: 20px;
+}
+
+/* Style for each button */
+.custom-button {
+  width: 300px;
+  height: 40px;
+  margin: 20px; /* Spacing between buttons */
+  font-size: 24px; /* Larger font for button text */
+  cursor: pointer;
+  border: none;
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white; /* Text color */
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.custom-button:hover {
+  background-color: #b30000; /* Darker shade on hover */
+}
+
+/* Style for the user information section */
+.user-info-section {
+  border-radius: 8px;
+  flex: 0.25; /* Take up 20% of the width */
+  border-left: 2px solid #bd2f2f; /* Border to separate from the button container */
+  background-color: #ffffff; /* White background for better readability */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Style for the user info box */
+.user-info {
+  padding: 10px;
+  background-color: #f9f9f9; /* Light background inside the user info section */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.user-info h2 {
+  font-size: 20px;
+  color: #333; /* Darker color for the title */
+}
+
+.user-info p {
+  font-size: 16px;
+  color: #555; /* Slightly lighter text color for content */
+}
+
+.user-info p strong {
+  font-weight: bold;
+}
+
+/* Style for the mentor details section */
+.mentor-details-section {
+  max-height: calc(100vh - 63.33px);
+  flex: 0.75; /* Take up 75% of the width */
+  padding: 20px; /* Padding for the mentor details section */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+}
+
+/* Style for each mentor container */
+.mentor-container {
+  margin-bottom: 15px; /* Spacing between mentor entries */
+  padding: 15px; /* Padding for the mentor container */
+  border: 1px solid #ddd; /* Light border for distinction */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f1f1f1; /* Light background for the mentor container */
+}
+
+.mentor-container:hover {
+  color: blue;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-page {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    justify-content: flex-start;
+  }
+  .button-container {
+    width: 100%;
+    padding: 0;
+    align-items: center;
+  }
+
+  .custom-button {
+    width: 80%; /* Adjust button width for smaller screens */
+  }
+
+  .user-info-section,
+  .mentor-details-section {
+    width: 100%;
+    margin-top: 20px;
+    border-left: none;
+    border-top: 2px solid #cccccc;
+  }
+}

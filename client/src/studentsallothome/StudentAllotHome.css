@@ -1,0 +1,50 @@
+/* studentsallothome/StudentAllotHome.css */
+.student-allot-home-container {
+    /* display: flex; */
+    padding: 20px;
+    background-color: #f0f0f0; /* Light background color */
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  .student-allot-home-container h1 {
+    color: #333; /* Dark text color */
+  }
+  
+  .button-container {
+    display: flex;
+    margin-top: 20px; /* Add space between the heading and buttons */
+  }
+  
+  .chat-button,
+  .video-call-button {
+    width: 150px; /* Set a fixed width for the buttons */
+    height: 50px; /* Set a fixed height for the buttons */
+    margin: 10px; /* Space between buttons */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    color: white;
+    cursor: pointer;
+    font-size: 18px; /* Font size */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* 3D effect shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .chat-button {
+    background-color: #007bff; /* Bootstrap primary color for chat button */
+  }
+  
+  .video-call-button {
+    background-color: #28a745; /* Bootstrap success color for video call button */
+  }
+  
+  .chat-button:hover{
+    background-color: rgb(43, 96, 188);
+    transform: translateY(-2px); /* Lift the button on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Darker shadow on hover for 3D effect */
+  }
+  .video-call-button:hover {
+    background-color: rgb(2, 96, 45);
+    transform: translateY(-2px); /* Lift the button on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Darker shadow on hover for 3D effect */
+  }
+  

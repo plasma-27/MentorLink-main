@@ -1,0 +1,241 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #ffc400; /* Bootstrap primary color */
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-logo a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.navbar-logo img {
+  margin-left: 10px;
+  height: 40px; /* Adjust the height of the logo */
+}
+
+/* Search Bar */
+.navbar-search {
+  flex-grow: 1;
+}
+
+.navbar-search-container {
+  position: relative;
+  margin-left: 150px;
+}
+
+.navbar-search-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 800px;
+  border-radius: 4px;
+  border: none;
+  padding-right: 35px; /* Add space for the search icon */
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px; /* Align the icon inside the input */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888; /* Lighter color for the icon */
+  cursor: pointer;
+}
+
+/* Navbar Links */
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a,
+.logout-button {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.logout-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: #067eff;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed; /* Fixed position */
+  top: 60px; /* Positioning below the navbar */
+  left: -300px; /* Start off-screen to the left */
+  width: 300px; /* Set a width for the sidebar */
+  height: calc(100% - 60px); /* Full height minus the navbar height */
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000; /* Ensure it appears above other content */
+  transition: left 0.3s ease; /* Animation for sliding in */
+}
+
+.sidebar.open {
+  left: 0; /* Slide in */
+}
+
+.sidebar.closed {
+  left: -300px; /* Slide out */
+}
+
+.sidebar h2 {
+  margin: 0 0 10px 0;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.project-button {
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.project-button:hover {
+  background-color: #067eff; /* Darker shade on hover */
+}
+
+.sidebar-toggle {
+  background: transparent;
+  border: none;
+  font-size: 24px; /* Adjust size of the toggle icon */
+  color: white;
+  cursor: pointer;
+}
+
+/* Students Sidebar */
+.students-button {
+  margin-left: 20px;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.students-sidebar {
+  position: fixed; /* Fixed position */
+  top: 60px; /* Positioning below the navbar */
+  right: -300px; /* Start off-screen to the right */
+  width: 300px; /* Set a width for the sidebar */
+  height: calc(100% - 60px); /* Full height minus the navbar height */
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000; /* Ensure it appears above other content */
+  transition: right 0.3s ease; /* Animation for sliding in */
+}
+
+.students-sidebar.open {
+  right: 0; /* Slide in */
+}
+
+.students-sidebar h4 {
+  color: black;
+  margin: 0 0 10px 0;
+}
+
+.students-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.student-button {
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.student-button:hover {
+  background-color: #067eff; /* Darker shade on hover */
+}
+/* Mentor Sidebar */
+.mentor-sidebar {
+  margin-bottom: 50px;
+  position: fixed;
+  top: 60px; /* Align with the navbar */
+  right: -300px; /* Initially hidden off-screen */
+  width: 300px; /* Width of the sidebar */
+  height: calc(100% - 60px); /* Full height minus navbar */
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000; /* Ensure it appears above other content */
+  transition: right 0.3s ease; /* Smooth slide-in animation */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.mentor-sidebar.open {
+  right: 0; /* Slide in the sidebar when open */
+}
+
+.mentor-sidebar h4 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.mentor-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mentor-sidebar li {
+  background-color: black;
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white; /* Ensure text is readable on black background */
+}
+
+.mentor-sidebar li:hover {
+  background-color: blue; /* Change color on hover */
+  color: white;
+}
+
+/* Mentor Button */
+.mentor-button {
+  margin-left: 20px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.mentor-button:hover {
+  color: blue;
+}

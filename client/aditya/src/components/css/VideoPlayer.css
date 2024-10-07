@@ -1,0 +1,23 @@
+.video-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; /* Prevent overflow */
+  height: calc(100vh - 64px); /* Adjust height as needed */
+}
+
+.pinned-videos {
+  display: flex;
+  flex-wrap: wrap; /* Allow videos to wrap */
+  justify-content: space-around; /* Center the videos */
+}
+
+.pinned-video {
+  flex: 1 1 45%; /* Adjusts the size of pinned videos */
+  margin: 5px; /* Add some spacing */
+}
+
+.pinned-video-style {
+  width: 100%; /* Ensure the video takes full width */
+  height: auto; /* Maintain aspect ratio */
+}

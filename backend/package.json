@@ -1,0 +1,32 @@
+{
+  "name": "mentor_link",
+  "version": "1.0.0",
+  "description": "Working to create a project such that student can have alumni as their project mentors with Specific Domain Resulting in a better Project.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "agora-access-token": "^2.0.4",
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.0",
+    "faker": "^6.6.6",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.5.4",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.0.1"
+  }
+}
