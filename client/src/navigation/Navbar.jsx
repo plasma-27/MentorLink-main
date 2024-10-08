@@ -6,7 +6,7 @@ import logo from '../assets/login-image.jpg';
 import projectData from '../data/project';
 import credentials from '../data/credentials';
 import mentorData from '../data/mentordata';
-import students from '../data/studentsallot';
+import students from '../data/studentsallotdata'; // Ensure the import path is correct
 
 const Navbar = ({ loggedInUsername }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,6 +16,7 @@ const Navbar = ({ loggedInUsername }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Fetch projects associated with the logged-in user
   useEffect(() => {
     if (loggedInUsername) {
       const user = credentials.users.find(user => user.username === loggedInUsername);
@@ -28,7 +29,7 @@ const Navbar = ({ loggedInUsername }) => {
   const toggleStudentSidebar = () => setIsStudentSidebarOpen(prev => !prev);
 
   const showHomeLink = location.pathname !== '/login' && location.pathname !== '/register';
-  const showLogoutButton = ['/home', '/mentorhome', '/studentallothome'].includes(location.pathname);
+  const showLogoutButton = ['/home', '/mentorhome', '/studentallothomepage'].includes(location.pathname);
   const showSidebarButton = ['/home', '/ProjectHome'].includes(location.pathname);
   const showMentorButton = location.pathname === '/home';
   const showStudentButton = location.pathname === '/mentorhome';
@@ -47,7 +48,7 @@ const Navbar = ({ loggedInUsername }) => {
   };
 
   const handleStudentClick = (student) => {
-    navigate('/studentallothomepage', { state: { student } });
+    navigate(`/studentallothomepage`, { state: { student } });
   };
 
   return (
@@ -74,10 +75,7 @@ const Navbar = ({ loggedInUsername }) => {
       <div className="navbar-links">
         {showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>}
         {showMentorButton && <button onClick={toggleMentorSidebar} className="mentor-button">MENTORS</button>}
-        
-        {showStudentButton && (
-          <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>
-        )}
+        {showStudentButton && <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>}
         
         {showLogoutButton ? (
           <button onClick={handleLogout} className="logout-button">Logout</button>

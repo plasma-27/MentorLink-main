@@ -5,14 +5,46 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-  }
-  
-  .student-allot-home h1 {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 74%; /* Set the container width to 74% */
+    max-width: 500px; /* Maximum width */
+    margin: 50px auto; /* Center the container */
+}
+
+.student-allot-home h1 {
     color: #007bff;
-  }
-  
-  .student-allot-home p {
+    margin-bottom: 20px;
+}
+
+.student-allot-home p {
     font-size: 18px;
     color: #555;
-  }
-  
+    margin: 5px 0;
+}
+
+/* Styles for the action buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Space above the buttons */
+}
+
+.chat-button,
+.video-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px; /* Space between buttons */
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover,
+.video-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
