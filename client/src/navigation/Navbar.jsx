@@ -51,9 +51,17 @@ const Navbar = ({ loggedInUsername }) => {
     navigate(`/studentallothomepage`, { state: { student } });
   };
 
+  // Determine if the navigation should be hidden
+  const shouldHideNav = [
+    '/chat',
+    '/videocall',
+    '/MentorAllotHome',
+    '/projecthome' // Added the projecthome route here
+  ].includes(location.pathname);
+
   return (
     <nav className="navbar">
-      {showSidebarButton && (
+      {!shouldHideNav && showSidebarButton && (
         <button className="sidebar-toggle" onClick={toggleSidebar}>
           &#x22EE;
         </button>
@@ -65,7 +73,7 @@ const Navbar = ({ loggedInUsername }) => {
         </a>
       </div>
 
-      {showHomeLink && (
+      {!shouldHideNav && showHomeLink && (
         <div className="navbar-search-container">
           <input type="text" placeholder="Search..." className="navbar-search-input" />
           <FaSearch className="search-icon" />
@@ -73,16 +81,16 @@ const Navbar = ({ loggedInUsername }) => {
       )}
 
       <div className="navbar-links">
-        {showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>}
-        {showMentorButton && <button onClick={toggleMentorSidebar} className="mentor-button">MENTORS</button>}
-        {showStudentButton && <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>}
+        {!shouldHideNav && showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>}
+        {!shouldHideNav && showMentorButton && <button onClick={toggleMentorSidebar} className="mentor-button">MENTORS</button>}
+        {!shouldHideNav && showStudentButton && <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>}
         
         {showLogoutButton ? (
           <button onClick={handleLogout} className="logout-button">Logout</button>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            {!shouldHideNav && <Link to="/login">Login</Link>}
+            {!shouldHideNav && <Link to="/register">Register</Link>}
           </>
         )}
       </div>
