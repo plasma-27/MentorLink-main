@@ -29,15 +29,30 @@
 
 .login-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px; /* Increased size of the form */
   margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 20px;
+  padding: 30px; /* Increased padding for a more spacious form */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: white;
 }
 
+.circle-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Space between circular image and form elements */
+}
+
+.circle-image {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  border: 2px solid #007bff; /* Optional: border color */
+}
+
+/* Login Form Elements */
 .login-form h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -52,12 +67,21 @@
   margin-bottom: 5px;
 }
 
+/* Text fields with 3D effect */
 .input-field input {
   width: 100%;
-  padding: 8px;
+  padding: 10px; /* Increased padding for better aesthetics */
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Initial shadow */
+}
+
+.input-field input:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
+  transform: translateY(-1px); /* Slightly lift the input */
 }
 
 .error-message {
@@ -65,17 +89,22 @@
   text-align: center; /* Center error message */
 }
 
+/* Login Button */
 .login-button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px; /* Round edges */
   cursor: pointer;
   font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Initial shadow */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
 .login-button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px); /* Slightly lift the button */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }

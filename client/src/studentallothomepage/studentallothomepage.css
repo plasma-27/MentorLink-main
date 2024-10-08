@@ -1,50 +1,63 @@
 /* studentallothomepage.css */
 .student-allot-home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 74%; /* Set the container width to 74% */
-    max-width: 500px; /* Maximum width */
-    margin: 50px auto; /* Center the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 74%; /* Set the container width to 74% */
+  max-width: 500px; /* Maximum width */
+  margin: 50px auto; /* Center the container */
+}
+
+.profile-image-container {
+  margin-bottom: 20px; /* Space below the image */
+}
+
+.profile-image {
+  width: 70px; /* Fixed size for the image */
+  height: 70px; /* Fixed height */
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures image fits within the circle */
+  border: 2px solid #006400; /* Optional: Border for the image */
 }
 
 .student-allot-home h1 {
-    color: #007bff;
-    margin-bottom: 20px;
+  color: #006400;
+  margin-bottom: 20px;
 }
 
 .student-allot-home p {
-    font-size: 18px;
-    color: #555;
-    margin: 5px 0;
+  font-size: 18px;
+  color: #555;
+  margin: 5px 0;
 }
 
 /* Styles for the action buttons */
 .action-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* Space above the buttons */
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Space above the buttons */
 }
 
 .chat-button,
 .video-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 0 10px; /* Space between buttons */
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px; /* More rounded edges */
+  padding: 12px 20px; /* Increased size for buttons */
+  font-size: 18px; /* Larger font size */
+  cursor: pointer;
+  margin: 0 10px; /* Space between buttons */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
 .chat-button:hover,
 .video-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly larger on hover */
 }
