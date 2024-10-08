@@ -47,27 +47,36 @@
   cursor: pointer;
 }
 
-/* Navbar Links */
+/* Navbar Links and Buttons */
 .navbar-links {
   display: flex;
   align-items: center;
 }
 
-.navbar-links a,
-.logout-button {
-  margin-left: 20px;
-  color: white;
-  text-decoration: none;
-}
-
-.logout-button {
-  background: transparent;
+.navbar-links a, 
+.logout-button, 
+.mentor-button, 
+.student-button {
+  background-color: black; /* Black background */
+  color: white; /* White text */
   border: none;
+  padding: 10px 15px;
+  margin-left: 20px;
+  border-radius: 25px; /* Round edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D shadow effect */
   cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  text-decoration: none; /* Remove underline from anchor tags */
 }
 
-.logout-button:hover {
-  color: #067eff;
+/* Hover Effect */
+.navbar-links a:hover, 
+.logout-button:hover, 
+.mentor-button:hover, 
+.student-button:hover {
+  color: lightgreen; /* Change text color to light green on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Enhance shadow on hover */
+  transform: translateY(-2px); /* Slightly "raise" the button on hover */
 }
 
 /* Sidebar for Projects */
@@ -101,6 +110,7 @@
   padding: 0;
 }
 
+/* Project Button Styles */
 .project-button {
   width: 100%;
   background-color: #000000;
@@ -151,14 +161,6 @@
   background-color: #067eff; /* Darker shade on hover */
 }
 
-.sidebar-toggle {
-  background: transparent;
-  border: none;
-  font-size: 24px; /* Adjust size of the toggle icon */
-  color: white;
-  cursor: pointer;
-}
-
 /* Student Sidebar */
 .student-sidebar {
   color: black;
@@ -193,5 +195,5 @@
 }
 
 .student-button:hover {
-  background-color: #067eff;
+  background-color: #067eff; /* Darker shade on hover */
 }

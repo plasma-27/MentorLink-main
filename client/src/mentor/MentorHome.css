@@ -9,7 +9,11 @@ body {
 
 .student-container {
   width: 74%; /* Set width to 74% for the student container */
-  background-color: rgb(155, 146, 146); /* Optional: Set a background color for visibility */
+  background-color: rgb(
+    155,
+    146,
+    146
+  ); /* Optional: Set a background color for visibility */
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
   border-radius: 8px; /* Optional: Rounded corners */
@@ -41,47 +45,97 @@ body {
   margin-bottom: 5px; /* Space between list items */
 }
 
+/* Student Request Container */
 .student-request {
   background-color: white;
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for 3D effect */
+}
+
+.student-request:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* 3D shadow on hover */
 }
 
 .student-request p {
   margin: 5px 0;
 }
 
-.message {
-  font-style: italic;
-  margin-bottom: 10px;
+/* Increase font size for student details */
+.tech-stack,
+.student-name {
+  font-size: 18px; /* Adjust font size to be larger */
 }
 
+/* Request Buttons */
 .request-buttons {
   display: flex;
-  gap: 10px;
+  gap: 15px; /* Add spacing between buttons */
 }
 
-.accept-btn {
-  background-color: #28a745;
+.accept-btn,
+.decline-btn {
+  background-color: #28a745; /* Default green color for Accept */
   color: white;
   border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: 10px 25px; /* Increased padding for larger buttons */
+  border-radius: 20px; /* More rounded edges */
   cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .decline-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #dc3545; /* Default red color for Decline */
 }
 
-.accept-btn:hover, .decline-btn:hover {
+.accept-btn:hover {
+  background-color: #1e7e34; /* Darker green on hover */
+}
+
+.decline-btn:hover {
+  background-color: #bd2130; /* Darker red on hover */
+}
+
+.accept-btn:hover,
+.decline-btn:hover {
   transform: translateY(-2px); /* Lift the button on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Darker shadow on hover for 3D effect */
+}
+
+/* DP Image */
+.dp-image {
+  width: 40px; /* Fixed size for the DP image */
+  height: 40px;
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures image fits within the circle */
+  margin-right: 10px; /* Adds space between the image and the student name */
+  display: inline-block; /* To align with text */
+  vertical-align: middle; /* Align with the text */
+}
+
+/* Student Image */
+.student-image {
+  width: 30px; /* Fixed size for the student image */
+  height: 30px;
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures the image fits within the circle */
+  margin-right: 10px; /* Adds space between the image and the student name */
+  display: inline-block; /* To align with text */
+  vertical-align: middle; /* Align with the text */
+}
+
+.mentor-header {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center items vertically */
+}
+
+.mentor-image {
+  width: 50px; /* Fixed size for the mentor image */
+  height: 50px; /* Fixed height */
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures the image fits within the circle */
+  margin-right: 10px; /* Space between the image and the heading */
 }

@@ -20,8 +20,9 @@
   margin-bottom: 20px;
 }
 
+/* Increased font size for mentor information */
 .mentor-details p {
-  font-size: 16px;
+  font-size: 18px; /* Increased font size */
   color: #555;
   margin-bottom: 10px;
 }
@@ -33,7 +34,8 @@
   margin-top: 20px; /* Add some space above the buttons */
 }
 
-.chat-btn, .video-btn {
+.chat-btn,
+.video-btn {
   background-color: #007bff; /* Button background color */
   color: white; /* Button text color */
   border: none; /* Remove default border */
@@ -45,6 +47,7 @@
   margin: 0 5px; /* Space between buttons */
 }
 
-.chat-btn:hover, .video-btn:hover {
+.chat-btn:hover,
+.video-btn:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
