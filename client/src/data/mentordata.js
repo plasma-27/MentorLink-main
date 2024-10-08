@@ -5,7 +5,7 @@ let mentorData = [
     name: 'Robert',
     surname: 'Brown',
     username: 'robertb',
-    password: 'securepassword5', // Use a secure password in production
+    password: '123', // Use a secure password in production
     yearPassed: 2023,
     company: 'Cloud Innovations',
     techStack: ['C#', 'ASP.NET', 'Azure'],

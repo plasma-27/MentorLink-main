@@ -1,0 +1,18 @@
+/* studentallothomepage.css */
+.student-allot-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .student-allot-home h1 {
+    color: #007bff;
+  }
+  
+  .student-allot-home p {
+    font-size: 18px;
+    color: #555;
+  }
+  
