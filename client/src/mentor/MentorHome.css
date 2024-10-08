@@ -3,12 +3,12 @@ body {
 }
 
 .mentor-home-container {
-  height: calc(100vh - 63.33px); /* Full window height */
+  height: calc(100vh - 117.33px); /* Full window height */
   display: flex; /* Use flexbox to arrange containers in a row */
 }
 
 .student-container {
-  width: 75%; /* 75% width */
+  width: 74%; /* Set width to 74% for the student container */
   background-color: rgb(155, 146, 146); /* Optional: Set a background color for visibility */
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
@@ -18,7 +18,7 @@ body {
 }
 
 .mentor-info {
-  width: 24%; /* 24% width for the mentor info container */
+  width: 26%; /* Set width to 26% for the mentor info container */
   background-color: #d3d3d3; /* Optional: Set a background color for visibility */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
   border-radius: 8px; /* Optional: Rounded corners */

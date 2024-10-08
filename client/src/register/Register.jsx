@@ -141,10 +141,10 @@ const Register = () => {
                   <label htmlFor="yearPassed">Year Passed</label>
                   <input type="number" name="yearPassed" value={formData.yearPassed} onChange={handleChange} required placeholder='Enter Year Passed From College' />
                 </div>
-                <div className="input-field">
+                {/* <div className="input-field">
                   <label htmlFor="company">Company</label>
                   <input type="text" name="company" value={formData.company} onChange={handleChange} required placeholder='Enter Present Company Name' />
-                </div>
+                </div> */}
                 <div className="input-field">
                   <label htmlFor="dob">Date of Birth</label>
                   <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
