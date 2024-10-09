@@ -2,7 +2,6 @@ const Project = require('../models/Project');
 const User = require('../models/User');
 const { validationResult } = require('express-validator');
 
-
 // Create a new project
 exports.createProject = async (req, res) => {
   try {
@@ -12,7 +11,7 @@ exports.createProject = async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { mentees, title, description } = req.body;
+    const { mentees, title, description, github } = req.body;
 
     // 2. Check if all mentees exist
     const menteeUsers = await User.find({ _id: { $in: mentees }, role: 'mentee' });
@@ -24,6 +23,7 @@ exports.createProject = async (req, res) => {
     const newProject = new Project({
       title,
       description,
+      github, // GitHub link for the project
       mentees, // Array of mentee IDs
       // mentors will be empty initially
     });
@@ -79,7 +79,7 @@ exports.getProjectDetails = async (req, res) => {
 exports.updateProject = async (req, res) => {
   try {
     // Extract fields from the request body
-    const { title, description, status, mentors } = req.body;
+    const { title, description, github, status, mentors } = req.body;
 
     // Find the project by its ID
     const project = await Project.findById(req.params.id);
@@ -90,6 +90,7 @@ exports.updateProject = async (req, res) => {
     // Update only the fields that are provided
     if (title) project.title = title;
     if (description) project.description = description;
+    if (github) project.github = github; // Update GitHub link
     if (status) {
       if (!['ongoing', 'completed'].includes(status)) {
         return res.status(400).json({ msg: 'Invalid status value' });
@@ -115,6 +116,7 @@ exports.updateProject = async (req, res) => {
   }
 };
 
+// Assign mentor to project
 exports.assignMentor = async (req, res) => {
   try {
     // 1. Extract the project ID and mentor ID from the request parameters or body
