@@ -167,6 +167,7 @@
 
 /* Student Sidebar */
 .student-sidebar {
+  
   text-decoration: none;
   color: black;
   position: fixed;
@@ -179,6 +180,7 @@
   padding: 10px;
   z-index: 1000;
   transition: right 0.3s ease;
+  padding-right: 30px;
 }
 
 .student-sidebar.open {
