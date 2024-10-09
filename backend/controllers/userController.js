@@ -204,7 +204,7 @@ exports.getAvailableMentorsByDomain = async (req, res) => {
     const domains = req.query.domains ? req.query.domains.split(',') : [];
 
     if (domains.length === 1 && domains[0].toLowerCase() === 'all') {
-      const allMentors = await User.find({ role: 'mentor' }).select('name email bio skills mentorDetails');
+      const allMentors = await User.find({ role: 'mentor' }).select('name email bio skills mentorDetails linkedinID');
       return res.status(200).json(allMentors);
     }
 
@@ -257,6 +257,7 @@ exports.getAvailableMentorsByDomain = async (req, res) => {
           bio: 1,
           skills: 1,
           mentorDetails: 1,
+          linkedinID: 1,  // Add this line to include linkedinID
           expertiseMatchCount: 1,
           pastDomainsMatchCount: 1,
         }
