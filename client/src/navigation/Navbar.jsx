@@ -112,17 +112,17 @@ const Navbar = ({ loggedInUsername }) => {
               <li>No projects found</li>
             )}
           </ul>
-          {/* Add Projects button */}
-          <button
-            className="add-project-button"
-            onClick={() => navigate('/projectadd')}  // Navigate to ProjectAdd component
-          >
-            Add Projects
-          </button>
+          {/* Add Projects button - Hidden on mentorhome */}
+          {!showStudentButton && ( // Check if we are not on mentorhome
+            <button
+              className="add-project-button"
+              onClick={() => navigate('/projectadd')}  // Navigate to ProjectAdd component
+            >
+              Add Projects
+            </button>
+          )}
         </aside>
       )}
-
-
 
       {/* Sidebar for Mentors */}
       {isMentorSidebarOpen && (
