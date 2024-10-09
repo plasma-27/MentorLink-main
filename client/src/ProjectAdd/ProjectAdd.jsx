@@ -74,7 +74,7 @@ const ProjectAdd = () => {
             <option value="completed">completed</option>
           </select>
         </div>
-
+{/* 
         <div className="form-group">
           <label htmlFor="mentors">Mentors (comma-separated):</label>
           <input
@@ -83,7 +83,7 @@ const ProjectAdd = () => {
             value={mentors}
             onChange={(e) => setMentors(e.target.value)}
           />
-        </div>
+        </div> */}
 
         {/* New form group for GitHub URL */}
         <div className="form-group">
