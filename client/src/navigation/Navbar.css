@@ -32,7 +32,7 @@
 
 .navbar-search-input {
   height: 35px;
-  width: 800px;
+  width: 700px;
   border-radius: 4px;
   border: none;
   padding-right: 35px; /* Space for the search icon */
@@ -82,7 +82,7 @@
 /* Sidebar for Projects */
 .sidebar {
   position: fixed; /* Fixed position */
-  top: 60px; /* Positioning below the navbar */
+  top: 72.33px; /* Positioning below the navbar */
   left: -300px; /* Start off-screen to the left */
   width: 300px; /* Set a width for the sidebar */
   height: calc(100% - 60px); /* Full height minus the navbar height */
@@ -131,12 +131,16 @@
   top: 60px; /* Positioning below the navbar */
   right: -300px; /* Start off-screen to the right */
   width: 300px; /* Set a width for the sidebar */
-  height: calc(100% - 60px); /* Full height minus the navbar height */
+  height: calc(100vh - 63.33px); /* Full height minus the navbar height */
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  padding-right: 40px;
+  margin-left: none;
+  padding-left:  none;
   z-index: 1000; /* Ensure it appears above other content */
   transition: right 0.3s ease; /* Animation for sliding in */
+  top: 72.33px;
 }
 
 .mentor-sidebar.open {
