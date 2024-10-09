@@ -72,7 +72,7 @@ const Register = () => {
       role: formData.userType.toLowerCase(),
       bio: "I am an experienced software developer.",
       skills: formData.techStack,
-      linkedinProfile: formData.linkedinProfile, // Include LinkedIn profile in the request
+      linkedinID: formData.linkedinProfile, // Include LinkedIn profile in the request
     };
 
     try {
