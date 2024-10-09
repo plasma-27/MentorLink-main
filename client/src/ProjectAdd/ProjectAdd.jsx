@@ -88,5 +88,11 @@ const ProjectAdd = () => {
     </div>
   );
 };
-
+/*
+title
+description
+mentees
+status
+mentors
+*/
 export default ProjectAdd;

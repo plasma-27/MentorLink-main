@@ -9,9 +9,9 @@ const ProjectHome = () => {
   const navigate = useNavigate(); // Hook to handle navigation
 
   useEffect(() => {
-    // Flatten all the projects and find the project by its name
+    // Flatten all the projects and find the project by its title
     const allProjects = Object.values(studentProjects).flat();
-    const project = allProjects.find((proj) => proj.name === projectName);
+    const project = allProjects.find((proj) => proj.title === projectName);
     setProjectDetails(project);
   }, [projectName]);
 
@@ -30,15 +30,18 @@ const ProjectHome = () => {
 
   return (
     <div className="project-home-container">
-      <h2>{projectDetails.name}</h2>
+      <h2>{projectDetails.title}</h2>
       <p>
-        <strong>Status:</strong> {projectDetails.progress} complete
+        <strong>Status:</strong> {projectDetails.status}
       </p>
       <p>
         <strong>Description:</strong> {projectDetails.description}
       </p>
       <p>
-        <strong>Details:</strong> {projectDetails.details}
+        <strong>Mentees:</strong> {projectDetails.mentees.join(", ")}
+      </p>
+      <p>
+        <strong>Mentors:</strong> {projectDetails.mentors.join(", ")}
       </p>
 
       {/* Buttons for Chat and Video */}
