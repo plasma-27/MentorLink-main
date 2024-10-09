@@ -84,7 +84,7 @@ const Navbar = ({ loggedInUsername }) => {
         {!shouldHideNav && showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>}
         {!shouldHideNav && showMentorButton && <button onClick={toggleMentorSidebar} className="mentor-button">MENTORS</button>}
         {!shouldHideNav && showStudentButton && <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>}
-        
+
         {showLogoutButton ? (
           <button onClick={handleLogout} className="logout-button">Logout</button>
         ) : (
@@ -112,8 +112,17 @@ const Navbar = ({ loggedInUsername }) => {
               <li>No projects found</li>
             )}
           </ul>
+          {/* Add Projects button */}
+          <button
+            className="add-project-button"
+            onClick={() => navigate('/projectadd')}  // Navigate to ProjectAdd component
+          >
+            Add Projects
+          </button>
         </aside>
       )}
+
+
 
       {/* Sidebar for Mentors */}
       {isMentorSidebarOpen && (
