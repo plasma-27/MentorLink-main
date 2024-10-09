@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Register.css';
 import { useNavigate } from 'react-router-dom';
 import registerImage from '../assets/login-image.jpg';
-import Navbar from '../navigation/Navbar'; // Import Navbar
 
 const techOptions = [
   'JavaScript',
