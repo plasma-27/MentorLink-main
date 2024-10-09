@@ -13,19 +13,24 @@ const Home = () => {
   useEffect(() => {
     // Fetch user info if loggedInUsername is present
     if (loggedInUsername) {
-      fetch(http://localhost:8000/api/users/profile/${loggedInUsername})
-        .then(response => response.json())
+      fetch(`http://localhost:8000/api/users/profile/${loggedInUsername}`)
+        .then(response => {
+          if (!response.ok) throw new Error('User info fetch failed');
+          return response.json();
+        })
         .then(data => setUserInfo(data))
         .catch(error => console.error('Error fetching user info:', error));
     }
-
+  
     // Fetch available mentors
     fetch('http://localhost:8000/api/users/available-mentors?domains=all')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Mentor data fetch failed');
+        return response.json();
+      })
       .then(data => {
         setMentors(data); // Set fetched mentor data
         setLoading(false); // Disable loading
-        
       })
       .catch(error => {
         console.error('Error fetching mentor data:', error);
