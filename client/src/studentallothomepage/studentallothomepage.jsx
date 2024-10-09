@@ -42,12 +42,7 @@ const StudentAllotHome = () => {
 
       {/* Buttons for Chat and Video */}
       <div className="action-buttons">
-        <button className="chat-button" onClick={handleChatClick}>
-          Chat
-        </button>
-        <button className="video-button" onClick={handleVideoClick}>
-          Video
-        </button>
+        
       </div>
     </div>
   );
