@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './Register.css';
 import { useNavigate } from 'react-router-dom';
-import registerImage from '../assets/login-image.jpg'; // Ensure you have a different image for register
-import credentials from '../data/credentials'; // Import credentials from JSON
-import mentorData from '../data/mentordata'; // Import mentor data
+import registerImage from '../assets/login-image.jpg';
 import Navbar from '../navigation/Navbar'; // Import Navbar
 
 const techOptions = [
@@ -14,7 +12,6 @@ const techOptions = [
   'Ruby',
   'PHP',
   'Go',
-  // Add more tech stack options as needed
 ];
 
 const Register = () => {
@@ -28,8 +25,8 @@ const Register = () => {
     company: '',
     techStack: [],
     userType: '',
-    dob: '', // New field for date of birth
-    college: '', // New field for college
+    dob: '', 
+    college: '', 
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -61,47 +58,46 @@ const Register = () => {
 
   const handleNext = () => {
     setStep(step + 1);
-    setError(''); // Clear any previous error
+    setError(''); 
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Check if user already exists in credentials
-    const userExists = credentials.users.some(user => user.username === formData.username);
+    // Prepare the request body for the API call
+    const requestBody = {
+      name: formData.name + " " + formData.surname,
+      email: formData.username, // Assuming username is the email
+      password: formData.password,
+      role: formData.userType.toLowerCase(),
+      bio: "I am an experienced software developer.",
+      skills: formData.techStack,
+    };
 
-    if (userExists) {
-      setError('User already exists. Please choose a different username.');
-      return;
-    }
-
-    // Depending on the user type, save the data in the respective file
-    if (formData.userType === 'Alumni') {
-      // Add new mentor to mentor data
-      mentorData.push({
-        name: formData.name,
-        surname: formData.surname,
-        username: formData.username, // Save the username
-        password: formData.password, // Save the password
-        yearPassed: formData.yearPassed,
-        company: formData.company,
-        techStack: formData.techStack,
-        dob: formData.dob, // Save the DOB
-        college: formData.college, // Save the college
+    try {
+      const response = await fetch('http://localhost:8000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
       });
 
-      // Save updated mentor data to local storage
-      localStorage.setItem('mentorData', JSON.stringify(mentorData));
-    } else if (formData.userType === 'Student') {
-      // Add new user to credentials
-      credentials.users.push({ ...formData });
+      const data = await response.json();
 
-      // Save updated credentials to local storage
-      localStorage.setItem('credentials', JSON.stringify(credentials));
+      console.log(data);
+      
+
+      if (response.ok) {
+        console.log('Registration successful:', data);
+        navigate('/login'); // Redirect to login page after successful registration
+      } else {
+        setError(data.message || 'Registration failed.');
+      }
+    } catch (err) {
+      console.error('Error during registration:', err);
+      setError('An error occurred. Please try again.');
     }
-
-    console.log('Registration successful');
-    navigate('/login'); // Redirect to login page after successful registration
   };
 
   return (
@@ -113,7 +109,7 @@ const Register = () => {
         <div className="form-section">
           <form className="register-form" onSubmit={handleRegister}>
             <h2>Register</h2>
-            {error && <p className="error-message">{error}</p>} {/* Display error message */}
+            {error && <p className="error-message">{error}</p>}
             {step === 1 && (
               <>
                 <div className="input-field">
@@ -125,8 +121,8 @@ const Register = () => {
                   <input type="text" name="surname" value={formData.surname} onChange={handleChange} required placeholder='Enter surname' />
                 </div>
                 <div className="input-field">
-                  <label htmlFor="username">Username</label>
-                  <input type="text" name="username" value={formData.username} onChange={handleChange} required placeholder='Enter Username' />
+                  <label htmlFor="username">Username (Email)</label>
+                  <input type="email" name="username" value={formData.username} onChange={handleChange} required placeholder='Enter Email' />
                 </div>
                 <div className="input-field">
                   <label htmlFor="password">Password</label>
@@ -141,10 +137,6 @@ const Register = () => {
                   <label htmlFor="yearPassed">Year Passed</label>
                   <input type="number" name="yearPassed" value={formData.yearPassed} onChange={handleChange} required placeholder='Enter Year Passed From College' />
                 </div>
-                {/* <div className="input-field">
-                  <label htmlFor="company">Company</label>
-                  <input type="text" name="company" value={formData.company} onChange={handleChange} required placeholder='Enter Present Company Name' />
-                </div> */}
                 <div className="input-field">
                   <label htmlFor="dob">Date of Birth</label>
                   <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
@@ -157,8 +149,8 @@ const Register = () => {
                   <label>
                     <input 
                       type="radio" 
-                      value="Alumni" 
-                      checked={formData.userType === 'Alumni'} 
+                      value="mentor" 
+                      checked={formData.userType === 'mentor'} 
                       onChange={handleRadioChange} 
                     />
                     Alumni
@@ -166,8 +158,8 @@ const Register = () => {
                   <label>
                     <input 
                       type="radio" 
-                      value="Student" 
-                      checked={formData.userType === 'Student'} 
+                      value="mentee" 
+                      checked={formData.userType === 'mentee'} 
                       onChange={handleRadioChange} 
                     />
                     Student

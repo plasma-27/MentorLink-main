@@ -3,8 +3,6 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.gif"; // Main login image
 import circleImage from "../assets/pro.webp"; // Circular image
-import credentials from "../data/credentials"; // Import credentials from JS file
-import mentorData from "../data/mentordata"; // Import mentor data from JS file
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -16,39 +14,43 @@ const Login = () => {
     e.preventDefault();
     setError(""); // Clear any existing error
 
-    // Check if user is present in mentor data
-    const mentor = await new Promise((resolve) => {
-      setTimeout(() => {
-        const foundMentor = mentorData.find(
-          (mentor) =>
-            mentor.username === username && mentor.password === password
-        );
-        resolve(foundMentor);
-      }, 500); // Simulate network delay
-    });
-
-    if (mentor) {
-      localStorage.setItem("loggedInUser", username);
-      // Navigate to MentorHome if found in mentor data
-      navigate("/mentorhome", { state: { loggedInUsername: mentor.username } });
-    } else {
-      // If not found in mentor data, check in regular credentials (students)
-      const user = await new Promise((resolve) => {
-        setTimeout(() => {
-          const foundUser = credentials.users.find(
-            (user) => user.username === username && user.password === password
-          );
-          resolve(foundUser);
-        }, 500); // Simulate network delay
+    try {
+      // Make the POST request to the backend
+      const response = await fetch("http://localhost:8000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: username, // Assuming username is the email here
+          password: password,
+        }),
       });
 
-      if (user) {
+      const data = await response.json();
+
+      console.log(data);
+      
+
+      if (response.ok) {
         localStorage.setItem("loggedInUser", username);
-        // Navigate to Home if found in credentials
-        navigate("/home", { state: { loggedInUsername: user.username } });
+
+        // Check user role and navigate to the appropriate page
+        if (data.user.role === "mentor") {
+          navigate("/mentorhome", {
+            state: { loggedInEmail: data.user.email, mentor: data.user },
+          });
+        } else {
+          navigate("/home", {
+            state: { loggedInEmail: data.user.email },
+          });
+        }
       } else {
-        setError("Invalid username or password");
+        setError(data.message || "Invalid username or password");
       }
+    } catch (err) {
+      console.error("Error during login:", err);
+      setError("An error occurred. Please try again.");
     }
   };
 
