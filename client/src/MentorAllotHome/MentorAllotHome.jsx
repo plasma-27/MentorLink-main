@@ -29,10 +29,7 @@ const MentorAllotHome = () => {
           <p><strong>Tech Stack:</strong> {mentor.techStack.join(', ')}</p>
           <p><strong>DOB:</strong> {mentor.dob}</p>
           <p><strong>Company:</strong> {mentor.company}</p>
-          <div className="action-buttons">
-            <button className="chat-btn" onClick={handleChat}>Chat</button>
-            <button className="video-btn" onClick={handleVideo}>Video</button>
-          </div>
+          
         </div>
       ) : (
         <p>Mentor not found!</p>
