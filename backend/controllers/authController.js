@@ -11,7 +11,7 @@ exports.signup = async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, role, bio, skills } = req.body;
+    const { name, email, password, role, bio, skills, linkedinID } = req.body;
 
     // 2. Check if the user already exists
     let user = await User.findOne({ email });
@@ -31,6 +31,7 @@ exports.signup = async (req, res) => {
       role, // 'mentor' or 'mentee'
       bio,
       skills,
+      linkedinID, // Save the linkedinID during signup
     });
 
     // 5. Save the user to the database
@@ -40,10 +41,11 @@ exports.signup = async (req, res) => {
     res.status(201).json({
       msg: 'User registered successfully',
       user: {
-        userId: user.userId, // Unique userId
+        userId: user.email, // Using email as the unique identifier
         name: user.name,
         email: user.email,
         role: user.role,
+        linkedinID: user.linkedinID, // Return linkedinID
       },
     });
   } catch (error) {
@@ -51,6 +53,7 @@ exports.signup = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
 
 // Login
 exports.login = async (req, res) => {
