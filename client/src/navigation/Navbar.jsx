@@ -81,7 +81,7 @@ const Navbar = ({ loggedInUsername }) => {
       )}
 
       <div className="navbar-links">
-        {!shouldHideNav && showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>}
+        {/* {!shouldHideNav && showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>} */}
         {!shouldHideNav && showMentorButton && <button onClick={toggleMentorSidebar} className="mentor-button">MENTORS</button>}
         {!shouldHideNav && showStudentButton && <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>}
 

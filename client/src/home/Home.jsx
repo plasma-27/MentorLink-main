@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Home.css';
+import linkedinLogo from '../assets/linkedin-logo.png'; // Import the LinkedIn logo
 
 const Home = () => {
   const location = useLocation();
@@ -36,6 +37,15 @@ const Home = () => {
     alert('Your message has been sent to the mentor!'); // Alert message
   };
 
+  // Function to handle LinkedIn connection
+  const handleConnectWithLinkedIn = (linkedinUrl) => {
+    if (linkedinUrl) {
+      window.open(linkedinUrl, '_blank'); // Open LinkedIn URL in a new tab
+    } else {
+      alert('LinkedIn URL is not available for this mentor.'); // Alert if URL is not available
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Show loading message while data is being fetched
   }
@@ -45,7 +55,7 @@ const Home = () => {
       {/* Mentor Details Section */}
       <div className="mentor-details-section">
         {mentors.length > 0 ? (
-          mentors.map((mentor, index) => (
+          mentors.map((mentor) => (
             <div key={mentor._id} className="mentor-container">
               <p><strong>Full Name:</strong> {mentor.name}</p>
               <p><strong>Email:</strong> {mentor.email}</p>
@@ -74,8 +84,18 @@ const Home = () => {
                   ))}
                 </ul>
               </div>
-              {/* Add onClick handler to the button */}
-              <button className="custom-button" onClick={handleApplyForMentorship}>Apply For Mentorship</button>
+              {/* Apply For Mentorship Button */}
+              <button className="custom-button" onClick={handleApplyForMentorship}>
+                Apply For Mentorship
+              </button>
+              {/* Connect With LinkedIn Button */}
+              <button 
+                className="custom-button" 
+                onClick={() => handleConnectWithLinkedIn(mentor.linkedinUrl)} // Assuming linkedinUrl is available in mentor data
+              >
+                <img src={linkedinLogo} alt="LinkedIn Logo" style={{ width: '20px', marginRight: '5px' }} />
+                Connect With LinkedIn
+              </button>
             </div>
           ))
         ) : (
