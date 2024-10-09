@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     // Fetch user info if loggedInUsername is present
     if (loggedInUsername) {
-      fetch(`http://localhost:8000/api/users/profile/${loggedInUsername}`)
+      fetch(http://localhost:8000/api/users/profile/${loggedInUsername})
         .then(response => response.json())
         .then(data => setUserInfo(data))
         .catch(error => console.error('Error fetching user info:', error));
@@ -25,12 +25,16 @@ const Home = () => {
       .then(data => {
         setMentors(data); // Set fetched mentor data
         setLoading(false); // Disable loading
+        
       })
       .catch(error => {
         console.error('Error fetching mentor data:', error);
         setLoading(false); // Disable loading even on error
       });
   }, [loggedInUsername]);
+
+  console.log("mentor data fetched: ",mentors);
+  
 
   // Function to handle mentorship application
   const handleApplyForMentorship = () => {
@@ -91,7 +95,7 @@ const Home = () => {
               {/* Connect With LinkedIn Button */}
               <button 
                 className="custom-button" 
-                onClick={() => handleConnectWithLinkedIn(mentor.linkedinUrl)} // Assuming linkedinUrl is available in mentor data
+                onClick={() => handleConnectWithLinkedIn(mentor.linkedinID)} // Assuming linkedinUrl is available in mentor data
               >
                 <img src={linkedinLogo} alt="LinkedIn Logo" style={{ width: '20px', marginRight: '5px' }} />
                 Connect With LinkedIn
