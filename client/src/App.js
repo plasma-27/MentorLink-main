@@ -12,6 +12,7 @@ import ProjectHome from './ProjectHome/ProjectHome';
 import MentorAllotHome from './MentorAllotHome/MentorAllotHome';
 import StudentAllotHomePage from './studentallothomepage/studentallothomepage';  // Updated path
 import mentorData from './data/mentordata';
+import ProjectAdd from './ProjectAdd/ProjectAdd';
 
 function App() {
   const loggedInUsername = localStorage.getItem('loggedInUser');
@@ -33,28 +34,31 @@ function App() {
         <Route path="/chat" element={loggedInUsername ? <Chat /> : <Navigate to="/login" />} />
 
         {/* MentorHome should pass the mentor data */}
-        <Route 
-          path="/mentorhome" 
-          element={loggedInUsername ? <MentorHome mentor={mentorData.find(m => m.username === loggedInUsername)} /> : <Navigate to="/login" />} 
+        <Route
+          path="/mentorhome"
+          element={loggedInUsername ? <MentorHome mentor={mentorData.find(m => m.username === loggedInUsername)} /> : <Navigate to="/login" />}
         />
 
         {/* Route for ProjectHome with dynamic projectName parameter */}
-        <Route 
-          path="/projecthome/:projectName" 
-          element={loggedInUsername ? <ProjectHome /> : <Navigate to="/login" />} 
+        <Route
+          path="/projecthome/:projectName"
+          element={loggedInUsername ? <ProjectHome /> : <Navigate to="/login" />}
         />
 
         {/* New route for MentorAllotHome with dynamic mentor name */}
-        <Route 
-          path="/mentorallothome/:mentorName" 
-          element={loggedInUsername ? <MentorAllotHome /> : <Navigate to="/login" />} 
+        <Route
+          path="/mentorallothome/:mentorName"
+          element={loggedInUsername ? <MentorAllotHome /> : <Navigate to="/login" />}
         />
 
         {/* Route for StudentAllotHomePage */}
-        <Route 
-          path="/studentallothomepage" 
-          element={loggedInUsername ? <StudentAllotHomePage /> : <Navigate to="/login" />} 
+        <Route
+          path="/studentallothomepage"
+          element={loggedInUsername ? <StudentAllotHomePage /> : <Navigate to="/login" />}
         />
+
+        {/* New route for ProjectAdd */}
+        <Route path="/projectadd" element={loggedInUsername ? <ProjectAdd /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );
