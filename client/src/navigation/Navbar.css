@@ -167,9 +167,10 @@
 
 /* Student Sidebar */
 .student-sidebar {
+  text-decoration: none;
   color: black;
   position: fixed;
-  top: 60px;
+  top: 72.33px;
   right: -300px;
   width: 300px;
   height: calc(100% - 60px);

@@ -30,7 +30,7 @@ const Navbar = ({ loggedInUsername }) => {
 
   const showHomeLink = location.pathname !== '/login' && location.pathname !== '/register';
   const showLogoutButton = ['/home', '/mentorhome', '/studentallothomepage'].includes(location.pathname);
-  const showSidebarButton = ['/home', '/ProjectHome'].includes(location.pathname);
+  const showSidebarButton = ['/home', '/ProjectHome', '/mentorhome'].includes(location.pathname);
   const showMentorButton = location.pathname === '/home';
   const showStudentButton = location.pathname === '/mentorhome';
 

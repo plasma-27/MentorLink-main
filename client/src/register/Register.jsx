@@ -21,6 +21,7 @@ const Register = () => {
     surname: '',
     username: '',
     password: '',
+    linkedinProfile: '', // New field for LinkedIn profile
     yearPassed: '',
     company: '',
     techStack: [],
@@ -72,6 +73,7 @@ const Register = () => {
       role: formData.userType.toLowerCase(),
       bio: "I am an experienced software developer.",
       skills: formData.techStack,
+      linkedinProfile: formData.linkedinProfile, // Include LinkedIn profile in the request
     };
 
     try {
@@ -123,6 +125,17 @@ const Register = () => {
                 <div className="input-field">
                   <label htmlFor="username">Username (Email)</label>
                   <input type="email" name="username" value={formData.username} onChange={handleChange} required placeholder='Enter Email' />
+                </div>
+                <div className="input-field">
+                  <label htmlFor="linkedinProfile">LinkedIn Profile URL</label> {/* New input field */}
+                  <input 
+                    type="url" 
+                    name="linkedinProfile" 
+                    value={formData.linkedinProfile} 
+                    onChange={handleChange} 
+                    required 
+                    placeholder="Enter LinkedIn Profile URL" 
+                  />
                 </div>
                 <div className="input-field">
                   <label htmlFor="password">Password</label>
