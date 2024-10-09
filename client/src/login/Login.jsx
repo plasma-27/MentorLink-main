@@ -37,6 +37,8 @@ const Login = () => {
 
         // Check user role and navigate to the appropriate page
         if (data.user.role === "mentor") {
+          console.log("Login : fetched: ",data);
+          
           navigate("/mentorhome", {
             state: { loggedInEmail: data.user.email, mentor: data.user },
           });
