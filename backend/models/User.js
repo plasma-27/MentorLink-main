@@ -36,10 +36,12 @@ const UserSchema = new mongoose.Schema({
   role: { type: String, enum: ['mentor', 'mentee'], required: true },
   bio: { type: String },
   skills: [{ type: String }],
+  linkedinID : {type: String}, 
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
   mentorDetails: {
     expertise: [{ type: String }],
     pastDomains: [{ type: String }],
+    currentCompany: {type: String}
   },
   availability: { type: Boolean, default: false },
   profilePicture: { type: String },
