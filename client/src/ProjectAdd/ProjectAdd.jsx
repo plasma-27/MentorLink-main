@@ -6,25 +6,60 @@ const ProjectAdd = () => {
   const [description, setDescription] = useState('');
   const [mentees, setMentees] = useState('');
   const [status, setStatus] = useState('ongoing');
-  const [mentors, setMentors] = useState('');
   const [createdDate, setCreatedDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
   const [githubUrl, setGithubUrl] = useState(''); // New state for GitHub URL
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Fetch mentee IDs using emails
+    const menteeEmails = mentees.split(',').map(email => email.trim());
+    let menteeIds = [];
+
+    try {
+      const promises = menteeEmails.map(async (email) => {
+        const response = await fetch(`http://localhost:8000/api/users/profile/${email}`);
+        if (!response.ok) throw new Error(`Error fetching ID for ${email}`);
+        const data = await response.json();
+        return data._id; // Assuming the API returns an object with {id: 'userId'}
+      });
+
+      menteeIds = await Promise.all(promises); // Resolve all promises
+    } catch (error) {
+      console.error('Error fetching mentee IDs:', error);
+      return; // Stop submission on error
+    }
+
     const projectData = {
       title,
       description,
-      mentees: mentees.split(','), // Assuming mentees are comma-separated
+      mentees: menteeIds, // Sending mentee IDs
       status,
-      mentors: mentors.split(','), // Assuming mentors are comma-separated
       createdDate,
       githubUrl, // Adding GitHub URL to project data
     };
 
     // Submit the project data (for now, just log it)
     console.log('Project Data Submitted:', projectData);
-    // Here you would typically send the data to your API or state management
+
+    const response = await fetch('http://localhost:8000/api/projects/create-project', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(projectData),
+    });
+
+    if (response.ok) {
+      alert('Project added successfully!');
+    } else {  
+      alert('Error adding project!');
+    }                 
+
+
+
+
+    // Here you would typically send the data to your API
     // For example: api.submitProject(projectData);
   };
 
@@ -54,12 +89,13 @@ const ProjectAdd = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="mentees">Mentees (comma-separated):</label>
+          <label htmlFor="mentees">Mentees (comma-separated emails):</label>
           <input
             type="text"
             id="mentees"
             value={mentees}
             onChange={(e) => setMentees(e.target.value)}
+            required
           />
         </div>
 
@@ -74,16 +110,6 @@ const ProjectAdd = () => {
             <option value="completed">completed</option>
           </select>
         </div>
-{/* 
-        <div className="form-group">
-          <label htmlFor="mentors">Mentors (comma-separated):</label>
-          <input
-            type="text"
-            id="mentors"
-            value={mentors}
-            onChange={(e) => setMentors(e.target.value)}
-          />
-        </div> */}
 
         {/* New form group for GitHub URL */}
         <div className="form-group">
@@ -105,3 +131,4 @@ const ProjectAdd = () => {
 };
 
 export default ProjectAdd;
+
