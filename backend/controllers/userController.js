@@ -217,6 +217,13 @@ exports.getAvailableMentorsByDomain = async (req, res) => {
     // 1. Get the list of domains from the request query
     const domains = req.query.domains ? req.query.domains.split(',') : [];
 
+    // Check if the user requested all mentors
+    if (domains.length === 1 && domains[0].toLowerCase() === 'all') {
+      // Return all mentors
+      const allMentors = await User.find({ role: 'mentor' }).select('name email bio skills mentorDetails');
+      return res.status(200).json(allMentors);
+    }
+
     if (domains.length === 0) {
       return res.status(400).json({ msg: 'No domains provided' });
     }

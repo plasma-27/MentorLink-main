@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Home.css';
-import credentials from '../data/credentials'; // Import credentials
-import mentorData from '../data/mentordata'; // Import mentor data
 
 const Home = () => {
   const location = useLocation();
   const { loggedInUsername } = location.state || {}; // Access loggedInUsername from location state
   const [userInfo, setUserInfo] = useState(null);
   const [mentors, setMentors] = useState([]); // State to hold mentor data
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
+    // Fetch user info if loggedInUsername is present
     if (loggedInUsername) {
-      // Fetch the user info from credentials based on the loggedInUsername
-      const user = credentials.users.find(user => user.username === loggedInUsername);
-      setUserInfo(user || null);
+      fetch(`http://localhost:8000/api/users/profile/${loggedInUsername}`)
+        .then(response => response.json())
+        .then(data => setUserInfo(data))
+        .catch(error => console.error('Error fetching user info:', error));
     }
 
-    // Fetch mentor data
-    setMentors(mentorData);
+    // Fetch available mentors
+    fetch('http://localhost:8000/api/users/available-mentors?domains=all')
+      .then(response => response.json())
+      .then(data => {
+        setMentors(data); // Set fetched mentor data
+        setLoading(false); // Disable loading
+      })
+      .catch(error => {
+        console.error('Error fetching mentor data:', error);
+        setLoading(false); // Disable loading even on error
+      });
   }, [loggedInUsername]);
 
   // Function to handle mentorship application
@@ -26,26 +36,44 @@ const Home = () => {
     alert('Your message has been sent to the mentor!'); // Alert message
   };
 
+  if (loading) {
+    return <div>Loading...</div>; // Show loading message while data is being fetched
+  }
+
   return (
     <div className="home-page">
       {/* Mentor Details Section */}
       <div className="mentor-details-section">
         {mentors.length > 0 ? (
           mentors.map((mentor, index) => (
-            <div key={index} className="mentor-container">
-              <p><strong>Full Name:</strong> {mentor.name} {mentor.surname}</p>
-              <p><strong>DOB:</strong> {mentor.dob}</p>
-              <p><strong>College:</strong> {mentor.college}</p>
+            <div key={mentor._id} className="mentor-container">
+              <p><strong>Full Name:</strong> {mentor.name}</p>
+              <p><strong>Email:</strong> {mentor.email}</p>
+              <p><strong>Bio:</strong> {mentor.bio}</p>
               <div className="tech-stack">
-                <strong>Tech Stack:</strong>
+                <strong>Skills:</strong>
                 <ul className="tech-stack-list">
-                  {mentor.techStack.map((tech, index) => (
+                  {mentor.skills.map((tech, index) => (
                     <li key={index} className="tech-chip">{tech}</li>
                   ))}
                 </ul>
               </div>
-              <p><strong>Year Passed:</strong> {mentor.yearPassed}</p>
-              <p><strong>Company:</strong> {mentor.company}</p>
+              <div className="tech-stack">
+                <strong>Expertise:</strong>
+                <ul className="tech-stack-list">
+                  {mentor.mentorDetails.expertise.map((exp, index) => (
+                    <li key={index} className="tech-chip">{exp}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="tech-stack">
+                <strong>Past Domains:</strong>
+                <ul>
+                  {mentor.mentorDetails.pastDomains.map((domain, index) => (
+                    <li key={index}>{domain}</li>
+                  ))}
+                </ul>
+              </div>
               {/* Add onClick handler to the button */}
               <button className="custom-button" onClick={handleApplyForMentorship}>Apply For Mentorship</button>
             </div>
@@ -60,17 +88,33 @@ const Home = () => {
         {userInfo ? (
           <div className="user-info">
             <h2>Your Profile</h2>
-            <p><strong>Name:</strong> {userInfo.name} {userInfo.surname}</p>
-            <p><strong>Year Passed:</strong> {userInfo.yearPassed}</p>
-            {/* <p><strong>Company:</strong> {userInfo.company}</p> */}
+            <p><strong>Name:</strong> {userInfo.name}</p>
+            <p><strong>Email:</strong> {userInfo.email}</p>
+            <p><strong>Role:</strong> {userInfo.role}</p>
+            <p><strong>Bio:</strong> {userInfo.bio}</p>
             <div className="tech-stack">
-              <strong>Tech Stack:</strong>
+              <strong>Skills:</strong>
               <ul className="tech-stack-list">
-                {userInfo.techStack.map((tech, index) => (
+                {userInfo.skills.map((tech, index) => (
                   <li key={index} className="tech-chip">{tech}</li>
                 ))}
               </ul>
             </div>
+            <div className="tech-stack">
+              <strong>Expertise:</strong>
+              <ul className="tech-stack-list">
+                {userInfo.expertise.map((exp, index) => (
+                  <li key={index} className="tech-chip">{exp}</li>
+                ))}
+              </ul>
+            </div>
+            <p><strong>Past Domains:</strong></p>
+            <ul>
+              {userInfo.pastDomains.map((domain, index) => (
+                <li key={index}>{domain}</li>
+              ))}
+            </ul>
+            <p><strong>Availability:</strong> {userInfo.availability ? 'Available' : 'Not Available'}</p>
           </div>
         ) : (
           <p>User information not available</p>
