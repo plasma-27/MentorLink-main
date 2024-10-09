@@ -5,9 +5,10 @@ const ProjectAdd = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [mentees, setMentees] = useState('');
-  const [status, setStatus] = useState('Active');
+  const [status, setStatus] = useState('ongoing');
   const [mentors, setMentors] = useState('');
   const [createdDate, setCreatedDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
+  const [githubUrl, setGithubUrl] = useState(''); // New state for GitHub URL
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const ProjectAdd = () => {
       status,
       mentors: mentors.split(','), // Assuming mentors are comma-separated
       createdDate,
+      githubUrl, // Adding GitHub URL to project data
     };
 
     // Submit the project data (for now, just log it)
@@ -83,16 +85,23 @@ const ProjectAdd = () => {
           />
         </div>
 
-        <button type="submit" className="submit-button-after-add-project">Add Project</button>
+        {/* New form group for GitHub URL */}
+        <div className="form-group">
+          <label htmlFor="githubUrl">GitHub URL:</label>
+          <input
+            type="url"
+            id="githubUrl"
+            value={githubUrl}
+            onChange={(e) => setGithubUrl(e.target.value)}
+            placeholder="https://github.com/your-project"
+            required
+          />
+        </div>
+
+        <button type="submit" className="submit-button">Add Project</button>
       </form>
     </div>
   );
 };
-/*
-title
-description
-mentees
-status
-mentors
-*/
+
 export default ProjectAdd;

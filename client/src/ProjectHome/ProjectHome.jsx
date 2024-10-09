@@ -43,6 +43,12 @@ const ProjectHome = () => {
       <p>
         <strong>Mentors:</strong> {projectDetails.mentors.join(", ")}
       </p>
+      <p>
+        <strong>GitHub URL:</strong>{" "}
+        <a href={projectDetails.githubUrl} target="_blank" rel="noopener noreferrer">
+          {projectDetails.githubUrl}
+        </a>
+      </p>
 
       {/* Buttons for Chat and Video */}
       <div className="project-buttons">

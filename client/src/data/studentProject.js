@@ -6,6 +6,7 @@ const studentProjects = {
       mentees: ["Sandesh"], // Add mentees associated with the project
       status: "In Progress", // Project status can be 'In Progress', 'Completed', or 'On Hold'
       mentors: ["Mentor A", "Mentor B"], // Add mentors associated with the project
+      githubUrl: "https://github.com/example/sandesh/project-alpha",
     },
     {
       title: "Project Beta",
@@ -13,6 +14,7 @@ const studentProjects = {
       mentees: ["Sandesh"],
       status: "In Progress",
       mentors: ["Mentor C"],
+      githubUrl: "https://github.com/example/sandesh/project-beta",
     },
     {
       title: "Project Gamma",
@@ -20,6 +22,7 @@ const studentProjects = {
       mentees: ["Sandesh"],
       status: "In Progress",
       mentors: ["Mentor D"],
+      githubUrl: "https://github.com/example/sandesh/project-gamma",
     },
   ],
   alok: [
@@ -29,6 +32,7 @@ const studentProjects = {
       mentees: ["Alok"],
       status: "In Progress",
       mentors: ["Mentor E"],
+      githubUrl: "https://github.com/example/alok/project-delta",
     },
     {
       title: "Project Epsilon",
@@ -36,6 +40,7 @@ const studentProjects = {
       mentees: ["Alok"],
       status: "In Progress",
       mentors: ["Mentor F"],
+      githubUrl: "https://github.com/example/alok/project-epsilon",
     },
   ],
   janesmith: [
@@ -45,6 +50,7 @@ const studentProjects = {
       mentees: ["Jane Smith"],
       status: "In Progress",
       mentors: ["Mentor G"],
+      githubUrl: "https://github.com/example/janesmith/project-zeta",
     },
     {
       title: "Project Eta",
@@ -52,6 +58,7 @@ const studentProjects = {
       mentees: ["Jane Smith"],
       status: "In Progress",
       mentors: ["Mentor H"],
+      githubUrl: "https://github.com/example/janesmith/project-eta",
     },
     {
       title: "Project Theta",
@@ -59,6 +66,7 @@ const studentProjects = {
       mentees: ["Jane Smith"],
       status: "In Progress",
       mentors: ["Mentor I"],
+      githubUrl: "https://github.com/example/janesmith/project-theta",
     },
   ],
   rohit: [
@@ -68,6 +76,7 @@ const studentProjects = {
       mentees: ["Rohit"],
       status: "In Progress",
       mentors: ["Mentor J"],
+      githubUrl: "https://github.com/example/rohit/project-iota",
     },
     {
       title: "Project Kappa",
@@ -75,6 +84,7 @@ const studentProjects = {
       mentees: ["Rohit"],
       status: "In Progress",
       mentors: ["Mentor K"],
+      githubUrl: "https://github.com/example/rohit/project-kappa",
     },
   ],
   neha: [
@@ -84,6 +94,7 @@ const studentProjects = {
       mentees: ["Neha"],
       status: "In Progress",
       mentors: ["Mentor L"],
+      githubUrl: "https://github.com/example/neha/project-lambda",
     },
     {
       title: "Project Mu",
@@ -91,6 +102,7 @@ const studentProjects = {
       mentees: ["Neha"],
       status: "In Progress",
       mentors: ["Mentor M"],
+      githubUrl: "https://github.com/example/neha/project-mu",
     },
     {
       title: "Project Nu",
@@ -98,6 +110,7 @@ const studentProjects = {
       mentees: ["Neha"],
       status: "In Progress",
       mentors: ["Mentor N"],
+      githubUrl: "https://github.com/example/neha/project-nu",
     },
   ],
   ankit: [
@@ -107,6 +120,7 @@ const studentProjects = {
       mentees: ["Ankit"],
       status: "In Progress",
       mentors: ["Mentor O"],
+      githubUrl: "https://github.com/example/ankit/project-xi",
     },
     {
       title: "Project Omicron",
@@ -114,6 +128,7 @@ const studentProjects = {
       mentees: ["Ankit"],
       status: "In Progress",
       mentors: ["Mentor P"],
+      githubUrl: "https://github.com/example/ankit/project-omicron",
     },
   ],
   // Add more students and their project progress as needed
