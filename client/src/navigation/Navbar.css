@@ -81,17 +81,19 @@
 
 /* Sidebar for Projects */
 .sidebar {
-  position: fixed; /* Fixed position */
+  position: fixed;
   top: 72.33px; /* Positioning below the navbar */
   left: -300px; /* Start off-screen to the left */
   width: 300px; /* Set a width for the sidebar */
   height: calc(100% - 60px); /* Full height minus the navbar height */
+  max-height: calc(100vh-100.33px); /* Limit the height to make it scrollable */
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   z-index: 1000; /* Ensure it appears above other content */
-  transition: left 0.3s ease;
-  color: black; /* Animation for sliding in */
+  transition: left 0.3s ease; /* Animation for sliding in */
+  overflow-y: auto; /* Enable scrolling when content overflows */
+  color: black;
 }
 
 .sidebar.open {
@@ -102,13 +104,10 @@
   left: -300px; /* Slide out */
 }
 
-.sidebar h2 {
-  margin: 0 0 10px 0;
-}
-
 .sidebar ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 /* Project Button Styles */
