@@ -3,10 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { FaSearch } from 'react-icons/fa';
 import logo from '../assets/login-image.jpg';
-import projectData from '../data/project';
-import credentials from '../data/credentials';
-import mentorData from '../data/mentordata';
-import students from '../data/studentsallotdata'; // Ensure the import path is correct
 
 const Navbar = ({ loggedInUsername }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,11 +12,18 @@ const Navbar = ({ loggedInUsername }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Fetch projects associated with the logged-in user
+  // Fetch projects associated with the logged-in user from API
   useEffect(() => {
     if (loggedInUsername) {
-      const user = credentials.users.find(user => user.username === loggedInUsername);
-      setProjects(user ? projectData[user.username.toLowerCase()] || [] : []);
+      fetch(`http://localhost:8000/api/projects/${loggedInUsername}`)
+        .then(response => { 
+          if (!response.ok) throw new Error('Failed to fetch projects');
+          return response.json();
+        })
+        .then(data => {
+          setProjects(data.projects || []); // Set the projects from the API response
+        })
+        .catch(error => console.error('Error fetching projects:', error));
     }
   }, [loggedInUsername]);
 
@@ -39,8 +42,9 @@ const Navbar = ({ loggedInUsername }) => {
     navigate('/login');
   };
 
-  const handleProjectClick = (project) => {
-    navigate(`/projecthome/${project}`);
+  const handleProjectClick = (projectId) => {
+    console.log("projectId : navbar :before routing  ", projectId);
+    navigate(`/projecthome`, { state: { projectId } }); // Pass projectId in state
   };
 
   const handleMentorClick = (mentorName) => {
@@ -51,7 +55,6 @@ const Navbar = ({ loggedInUsername }) => {
     navigate(`/studentallothomepage`, { state: { student } });
   };
 
-  // Determine if the navigation should be hidden
   const shouldHideNav = [
     '/chat',
     '/videocall',
@@ -81,12 +84,21 @@ const Navbar = ({ loggedInUsername }) => {
       )}
 
       <div className="navbar-links">
-        {/* {!shouldHideNav && showHomeLink && !showLogoutButton && <Link to="/dashboard">Home</Link>} */}
-        {!shouldHideNav && showMentorButton && <button onClick={toggleMentorSidebar} className="mentor-button">MENTORS</button>}
-        {!shouldHideNav && showStudentButton && <button onClick={toggleStudentSidebar} className="student-button">STUDENT</button>}
+        {!shouldHideNav && showMentorButton && (
+          <button onClick={toggleMentorSidebar} className="mentor-button">
+            MENTORS
+          </button>
+        )}
+        {!shouldHideNav && showStudentButton && (
+          <button onClick={toggleStudentSidebar} className="student-button">
+            STUDENTS
+          </button>
+        )}
 
         {showLogoutButton ? (
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
         ) : (
           <>
             {!shouldHideNav && <Link to="/login">Login</Link>}
@@ -101,10 +113,15 @@ const Navbar = ({ loggedInUsername }) => {
           <h2>Your Projects:</h2>
           <ul>
             {projects.length > 0 ? (
-              projects.map((project, index) => (
-                <li key={index}>
-                  <button className="project-button" onClick={() => handleProjectClick(project)}>
-                    {project}
+              projects.map((project) => (
+                <li key={project._id}>
+                  <div className="project-info">
+                    <p><strong>Title:</strong> {project.title}</p>
+                    <p><strong>Status:</strong> {project.status}</p>
+                    <p><strong>Description:</strong> {project.description}</p>
+                  </div>
+                  <button className="project-button" onClick={() => handleProjectClick(project._id)}>
+                    View Details
                   </button>
                 </li>
               ))
@@ -112,8 +129,7 @@ const Navbar = ({ loggedInUsername }) => {
               <li>No projects found</li>
             )}
           </ul>
-          {/* Add Projects button - Hidden on mentorhome */}
-          {!showStudentButton && ( // Check if we are not on mentorhome
+          {!showStudentButton && (
             <button
               className="add-project-button"
               onClick={() => navigate('/projectadd')}  // Navigate to ProjectAdd component
@@ -129,17 +145,7 @@ const Navbar = ({ loggedInUsername }) => {
         <aside className={`mentor-sidebar ${isMentorSidebarOpen ? 'open' : 'closed'}`}>
           <h2>Your Mentors:</h2>
           <ul>
-            {mentorData.length > 0 ? (
-              mentorData.map((mentor, index) => (
-                <li key={index}>
-                  <button className="mentor-button" onClick={() => handleMentorClick(mentor.name)}>
-                    {mentor.name}
-                  </button>
-                </li>
-              ))
-            ) : (
-              <li>No mentors found</li>
-            )}
+            {/* Mentor data would be handled similarly to projects */}
           </ul>
         </aside>
       )}
@@ -149,17 +155,7 @@ const Navbar = ({ loggedInUsername }) => {
         <aside className={`student-sidebar ${isStudentSidebarOpen ? 'open' : 'closed'}`}>
           <h4>Students Under Mentorship:</h4>
           <ul>
-            {students.length > 0 ? (
-              students.map((student, index) => (
-                <li key={index}>
-                  <button className="student-button" onClick={() => handleStudentClick(student)}>
-                    {student.name}
-                  </button>
-                </li>
-              ))
-            ) : (
-              <li>No students found</li>
-            )}
+            {/* Student data would be handled similarly to projects */}
           </ul>
         </aside>
       )}
