@@ -27,18 +27,17 @@ const MentorHome = () => {
   }, [mentor]);
 
   const handleResponse = (menteeName, requestId, status) => {
-    // Send PUT request to respond to mentorship request
     fetch(`http://localhost:8000/api/connections/respond/${requestId}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ status }), // Accept or reject status
+      body: JSON.stringify({ status }),
     })
       .then((response) => response.json())
       .then((data) => {
         alert(`${menteeName}'s request has been ${status}.`);
-        // Update the students state to reflect the response
+        // Update the students state to remove the accepted/declined request
         setStudents((prevStudents) =>
           prevStudents.filter((student) => student._id !== requestId)
         );
