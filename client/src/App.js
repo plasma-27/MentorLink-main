@@ -41,7 +41,7 @@ function App() {
 
         {/* Route for ProjectHome with dynamic projectName parameter */}
         <Route
-          path="/projecthome/:projectName"
+          path="/projecthome/"
           element={loggedInUsername ? <ProjectHome /> : <Navigate to="/login" />}
         />
 
