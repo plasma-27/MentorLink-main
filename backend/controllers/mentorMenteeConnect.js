@@ -60,17 +60,21 @@ exports.respondToRequest = async (req, res) => {
   }
 };
 
-// Get all mentorship requests for a mentor
+// Get all pending mentorship requests for a mentor
 exports.getMentorshipRequests = async (req, res) => {
   try {
     const { mentorId } = req.params;
 
-    const requests = await MentorMenteeConnect.find({ mentor: mentorId })
+    // Fetch only the requests with status 'pending'
+    const requests = await MentorMenteeConnect.find({
+      mentor: mentorId,
+      status: 'pending' // Filter for only pending requests
+    })
       .populate('mentee', 'name email')
       .exec();
 
     if (!requests.length) {
-      return res.status(404).json({ msg: 'No requests found' });
+      return res.status(404).json({ msg: 'No pending requests found' });
     }
 
     res.status(200).json(requests);
