@@ -48,26 +48,39 @@ exports.createProject = async (req, res) => {
   }
 };
 
-// Get project details
+// Get project details based on user email
 exports.getProjectDetails = async (req, res) => {
   try {
-    // 1. Extract the project ID from the request parameters
-    const { id } = req.params;
+    // 1. Extract the email from the request parameters
+    const { email } = req.params;
 
-    // 2. Find the project by its ID and populate mentees and mentors
-    const project = await Project.findById(id)
-      .populate('mentees', 'name email') // Optionally include mentee details
-      .populate('mentors', 'name email'); // Optionally include mentor details
-
-    // 3. If the project is not found, return a 404 error
-    if (!project) {
-      return res.status(404).json({ msg: 'Project not found' });
+    // 2. Find the user by email to ensure they exist and fetch their _id
+    const user = await User.findOne({ email }).select('_id role');
+    
+    // 3. If the user is not found, return a 404 error
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
     }
 
-    // 4. Return the project details in the response
+    // 4. Find all projects where the user is either a mentor or mentee
+    const projects = await Project.find({
+      $or: [
+        { mentees: user._id },  // Match projects where the user is a mentee
+        { mentors: user._id }   // Match projects where the user is a mentor
+      ]
+    })
+      .populate('mentees', 'name email')   // Optionally include mentee details
+      .populate('mentors', 'name email');  // Optionally include mentor details
+
+    // 5. If no projects are found, return a 404 error
+    if (!projects.length) {
+      return res.status(404).json({ msg: 'No projects associated with this user found' });
+    }
+
+    // 6. Return the project details in the response
     res.status(200).json({
-      msg: 'Project details fetched successfully',
-      project
+      msg: 'Projects fetched successfully',
+      projects
     });
   } catch (error) {
     console.error(error.message);
