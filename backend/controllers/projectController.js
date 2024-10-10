@@ -49,7 +49,7 @@ exports.createProject = async (req, res) => {
 };
 
 // Get project details based on user email
-exports.getProjectDetails = async (req, res) => {
+exports.getAllProjects = async (req, res) => {
   try {
     // 1. Extract the email from the request parameters
     const { email } = req.params;
@@ -162,6 +162,52 @@ exports.assignMentor = async (req, res) => {
     res.status(200).json({
       msg: 'Mentor assigned successfully',
       project
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+};
+
+
+// Get project details by project ID
+exports.getProjectDetails = async (req, res) => {
+  try {
+    // 1. Extract the project ID from the request parameters
+    const { id } = req.params;
+
+    // 2. Find the project by its ID and populate mentees and mentors with all relevant details
+    const project = await Project.findById(id)
+      .populate('mentees', 'name email _id') // Populate mentees with their name, email, and _id
+      .populate('mentors', 'name email _id'); // Populate mentors with their name, email, and _id
+
+    // 3. If the project is not found, return a 404 error
+    if (!project) {
+      return res.status(404).json({ msg: 'Project not found' });
+    }
+
+    // 4. Return the project details in the response, including the GitHub link
+    res.status(200).json({
+      msg: 'Project details fetched successfully',
+      project: {
+        _id: project._id,
+        title: project.title,
+        description: project.description,
+        github: project.github, // Include the GitHub link
+        mentees: project.mentees.map(mentee => ({
+          _id: mentee._id,
+          name: mentee.name,
+          email: mentee.email
+        })),
+        mentors: project.mentors.map(mentor => ({
+          _id: mentor._id,
+          name: mentor.name,
+          email: mentor.email
+        })),
+        status: project.status,
+        createdAt: project.createdAt,
+        __v: project.__v
+      }
     });
   } catch (error) {
     console.error(error.message);
