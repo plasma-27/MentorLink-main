@@ -1,32 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Added useNavigate for navigation
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./ProjectHome.css";
-import studentProjects from "../data/studentProject";
 
 const ProjectHome = () => {
-  const { projectName } = useParams(); // Get the project name from the URL
+  const location = useLocation(); // Get location object
+  const navigate = useNavigate();
+  
+  // Extract projectId from the location state
+  const projectId = location.state?.projectId; // Use optional chaining
   const [projectDetails, setProjectDetails] = useState(null);
-  const navigate = useNavigate(); // Hook to handle navigation
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  console.log("projectId : navbar : ", projectId);
 
   useEffect(() => {
-    // Flatten all the projects and find the project by its title
-    const allProjects = Object.values(studentProjects).flat();
-    const project = allProjects.find((proj) => proj.title === projectName);
-    setProjectDetails(project);
-  }, [projectName]);
+    const fetchProjectDetails = async () => {
+      if (!projectId) {
+        setError("Project ID is undefined.");
+        setLoading(false);
+        return;
+      }
 
-  if (!projectDetails) {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/projects/details/${projectId}`
+        );
+        console.log("Fetched Project Details:", response.data.project);
+        setProjectDetails(response.data.project);
+      } catch (err) {
+        if (err.response) {
+          console.error(`Error: ${err.response.status} - ${err.response.data}`);
+          setError(`Failed to fetch project details: ${err.response.statusText}`);
+        } else if (err.request) {
+          console.error("Error: No response received from the server", err.request);
+          setError("No response from the server. Please try again later.");
+        } else {
+          console.error("Error: ", err.message);
+          setError("An unexpected error occurred. Please try again.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjectDetails();
+  }, [projectId]);
+
+  // Loading state
+  if (loading) {
     return <div>Loading project details...</div>;
   }
 
-  // Handlers for navigating to chat and video call
-  const handleChatClick = () => {
-    navigate("/chat");
-  };
+  // Error state
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-  const handleVideoClick = () => {
-    navigate("/videocall");
-  };
+  // If no project details are found
+  if (!projectDetails) {
+    return <div>No project details found.</div>;
+  }
 
   return (
     <div className="project-home-container">
@@ -38,24 +73,36 @@ const ProjectHome = () => {
         <strong>Description:</strong> {projectDetails.description}
       </p>
       <p>
-        <strong>Mentees:</strong> {projectDetails.mentees.join(", ")}
+        <strong>Mentees:</strong>{" "}
+        {projectDetails.mentees.map((mentee, index) => (
+          <span key={mentee._id}>
+            {mentee.name} ({mentee.email})
+            {index < projectDetails.mentees.length - 1 ? ", " : ""}
+          </span>
+        ))}
       </p>
       <p>
-        <strong>Mentors:</strong> {projectDetails.mentors.join(", ")}
+        <strong>Mentors:</strong>{" "}
+        {projectDetails.mentors.length > 0
+          ? projectDetails.mentors.map((mentor, index) => (
+              <span key={mentor._id}>
+                {mentor.name} ({mentor.email})
+                {index < projectDetails.mentors.length - 1 ? ", " : ""}
+              </span>
+            ))
+          : "No mentors assigned"}
       </p>
       <p>
-        <strong>GitHub URL:</strong>{" "}
-        <a href={projectDetails.githubUrl} target="_blank" rel="noopener noreferrer">
-          {projectDetails.githubUrl}
-        </a>
+        <strong>Created At:</strong>{" "}
+        {new Date(projectDetails.createdAt).toLocaleDateString()}
       </p>
 
       {/* Buttons for Chat and Video */}
       <div className="project-buttons">
-        <button className="project-btn" onClick={handleChatClick}>
+        <button className="project-btn" onClick={() => navigate("/chat")}>
           Chat
         </button>
-        <button className="project-btn" onClick={handleVideoClick}>
+        <button className="project-btn" onClick={() => navigate("/videocall")}>
           Video
         </button>
       </div>
