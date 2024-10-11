@@ -272,3 +272,46 @@ exports.getAvailableMentorsByDomain = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+
+
+// Get user details by ID
+exports.getUserDetailsById = async (req, res) => {
+  try {
+    // 1. Extract the user ID from the request parameters
+    const { id } = req.params;
+
+    // 2. Find the user by their _id and populate project details
+    const user = await User.findById(id)
+      .populate('projects', 'title description status createdAt') // Populate all related project details
+      .select('-password'); // Exclude the password from the response
+
+    // 3. If the user is not found, return a 404 error
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // 4. Return every detail of the user
+    res.status(200).json({
+      msg: 'User details fetched successfully',
+      user: {
+        _id: user._id,
+        userId: user.userId,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        bio: user.bio,
+        skills: user.skills,
+        linkedinID: user.linkedinID,
+        mentorDetails: user.mentorDetails, // Includes expertise, pastDomains, and currentCompany
+        availability: user.availability,
+        profilePicture: user.profilePicture,
+        education: user.education, // Includes degree, institution, and graduation year
+        projects: user.projects,   // Populated project details
+      }
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+};

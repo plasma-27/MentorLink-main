@@ -48,26 +48,39 @@ exports.createProject = async (req, res) => {
   }
 };
 
-// Get project details
-exports.getProjectDetails = async (req, res) => {
+// Get project details based on user email
+exports.getAllProjects = async (req, res) => {
   try {
-    // 1. Extract the project ID from the request parameters
-    const { id } = req.params;
+    // 1. Extract the email from the request parameters
+    const { email } = req.params;
 
-    // 2. Find the project by its ID and populate mentees and mentors
-    const project = await Project.findById(id)
-      .populate('mentees', 'name email') // Optionally include mentee details
-      .populate('mentors', 'name email'); // Optionally include mentor details
-
-    // 3. If the project is not found, return a 404 error
-    if (!project) {
-      return res.status(404).json({ msg: 'Project not found' });
+    // 2. Find the user by email to ensure they exist and fetch their _id
+    const user = await User.findOne({ email }).select('_id role');
+    
+    // 3. If the user is not found, return a 404 error
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
     }
 
-    // 4. Return the project details in the response
+    // 4. Find all projects where the user is either a mentor or mentee
+    const projects = await Project.find({
+      $or: [
+        { mentees: user._id },  // Match projects where the user is a mentee
+        { mentors: user._id }   // Match projects where the user is a mentor
+      ]
+    })
+      .populate('mentees', 'name email')   // Optionally include mentee details
+      .populate('mentors', 'name email');  // Optionally include mentor details
+
+    // 5. If no projects are found, return a 404 error
+    if (!projects.length) {
+      return res.status(404).json({ msg: 'No projects associated with this user found' });
+    }
+
+    // 6. Return the project details in the response
     res.status(200).json({
-      msg: 'Project details fetched successfully',
-      project
+      msg: 'Projects fetched successfully',
+      projects
     });
   } catch (error) {
     console.error(error.message);
@@ -149,6 +162,52 @@ exports.assignMentor = async (req, res) => {
     res.status(200).json({
       msg: 'Mentor assigned successfully',
       project
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+};
+
+
+// Get project details by project ID
+exports.getProjectDetails = async (req, res) => {
+  try {
+    // 1. Extract the project ID from the request parameters
+    const { id } = req.params;
+
+    // 2. Find the project by its ID and populate mentees and mentors with all relevant details
+    const project = await Project.findById(id)
+      .populate('mentees', 'name email _id') // Populate mentees with their name, email, and _id
+      .populate('mentors', 'name email _id'); // Populate mentors with their name, email, and _id
+
+    // 3. If the project is not found, return a 404 error
+    if (!project) {
+      return res.status(404).json({ msg: 'Project not found' });
+    }
+
+    // 4. Return the project details in the response, including the GitHub link
+    res.status(200).json({
+      msg: 'Project details fetched successfully',
+      project: {
+        _id: project._id,
+        title: project.title,
+        description: project.description,
+        github: project.github, // Include the GitHub link
+        mentees: project.mentees.map(mentee => ({
+          _id: mentee._id,
+          name: mentee.name,
+          email: mentee.email
+        })),
+        mentors: project.mentors.map(mentor => ({
+          _id: mentor._id,
+          name: mentor.name,
+          email: mentor.email
+        })),
+        status: project.status,
+        createdAt: project.createdAt,
+        __v: project.__v
+      }
     });
   } catch (error) {
     console.error(error.message);
